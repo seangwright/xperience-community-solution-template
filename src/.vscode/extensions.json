@@ -6,7 +6,6 @@
     "editorconfig.editorconfig",
     "adrianwilczynski.user-secrets",
     "dotjoshjohnson.xml",
-    "tintoy.msbuild-project-tools",
-    "azurite.azurite"
+    "tintoy.msbuild-project-tools"
   ]
 }

@@ -11,8 +11,6 @@
     "**/pipelines/**/*.yml": "azure-pipelines"
   },
 
-  "azure-pipelines.configure": false,
-
   "[azure-pipelines]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

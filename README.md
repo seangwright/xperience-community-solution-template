@@ -21,46 +21,37 @@ To use the template, create a new directory:
 
 Then run the template:
 
-    dotnet new xpc-xperience-by-kentico-sln --name PRO01 --client-name pro-client --no-update-check
+    dotnet new xpc-xperience-by-kentico-sln --name PRO01 --ClientName pro-client
 
 To uninstall the template, run:
 
     dotnet new --uninstall XperienceCommunity.SolutionTemplate
 
-## Install from DevOps NuGet Feed
+## Install from NuGet
 
 Run the following to install the pre-release template from NuGet:
 
-    dotnet new --install XperienceCommunity.SolutionTemplate::<version-number> --interactive
+    dotnet new install XperienceCommunity.SolutionTemplate::<version-number>
 
 Where `<version-number>` is replaced by the [latest pre-release version number](NUGET_URL)
 
 To install the latest full release version of the template, run the following:
 
-    dotnet new --install XperienceCommunity.SolutionTemplate --interactive
+    dotnet new install XperienceCommunity.SolutionTemplate
 
 - See more on installing [.NET CLI project/solution templates](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates#installing-a-template-package)
 
 ## Use the Template
 
-Execute the following at the command line at the root of the repository you would like to contain the Kentico Xperience project (where `PRO01` is the project identifier and `pro-client` is the client's name in lowercase):
+Execute the following at the command line at the root of the repository you would like to contain the Xperience by Kentico project (where `PRO01` is the project identifier and `pro-client` is the client's name in lowercase):
 
-     dotnet new xpc-xperience-by-kentico-sln --name PRO01 --client-name pro-client
+     dotnet new xpc-xperience-by-kentico-sln --name PRO01 --ClientName pro-client
 
-You will be prompted to execute a PowerShell script which creates the `.zip` file to import Page Types into the site via the Kentico Xperience Administration app.
+> Note: You can specify the `-o` option to create an output folder. If you don't specify an output folder, all the files will be generated in the folder in which you execute the `dotnet new` command.
 
-Import the generated import file (`\.template-post-actions\PROJ01-XperienceImport.zip`) once the site is up and running.
+There are other options that can be specified with the template. These will be listed when using the `--help` option:
 
-Before running the site, execute the SQL in `\.template-post-actions\setup.sql` to update the Site configuration.
-
-## Notes
-
-After upgrading the CMS, the following files need to be deleted and replaced with their minified versions.
-
-Something about the file content causes `dotnet new` to fail.
-
-- `src\Content\src\management\CMS\CMSScripts\CMSModules\CMS.Charts\amCharts\plugins\export\libs\jszip\jszip.js`
-- `src\Content\src\management\CMS\CMSScripts\CMSModules\CMS.Charts\amCharts\plugins\export\libs\pdfmake\pdfmake.js`
+    dotnet new xpc-xperience-by-kentico-sln --help
 
 If you experience strange issues where it seems like updates to the template aren't applied when you use the template, clear the template cache for your current runtime:
 
