@@ -1,0 +1,52 @@
+﻿@using Kentico.Activities.Web.Mvc
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head id="head">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="view-transition" content="same-origin">
+
+    <link rel="preload" href='@ClientAssets.ViteAssetPath("styles/style.scss")' as="style" />
+    <link rel="modulepreload" href='@ClientAssets.ViteAssetPath("js/main.js")' as="script" />
+
+    <vc:page-custom-meta />
+
+    <link rel="stylesheet" href='@ClientAssets.ViteAssetPath("styles/style.scss")' />
+
+    @Html.Kentico().ActivityLoggingScriptV2()
+
+    @if (Context.Kentico().PageBuilder().EditMode)
+    {
+        <page-builder-styles />
+    }
+
+    <script>
+        window.asyncReady = function (callback) {
+            document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+        };
+    </script>
+</head>
+
+<body>
+    <vc:header />
+
+    <div id="pageContent">
+        @RenderBody()
+    </div>
+
+    <vc:footer />
+
+    <script type="module" src='@ClientAssets.ViteAssetPath("js/main.js")'></script>
+
+    <script src="/vendor/js/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="/vendor/js/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+
+    <script src="/vendor/js/htmx.min.js" asp-append-version="true"></script>
+
+    <page-builder-scripts />
+</body>
+
+</html>

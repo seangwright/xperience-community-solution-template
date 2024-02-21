@@ -1,0 +1,28 @@
+@using PROJECT_IDENTIFIER.Web.Components.Navigation;
+
+@model HeaderViewModel
+
+@{
+    string? GetCurrentClass(MenuItemViewModel item)
+    {
+        return item.IsActive ? "active" : null;
+    }
+
+    string? GetAriaAttribute(MenuItemViewModel item)
+    {
+        return item.IsActive ? "aria-current=page" : null;
+    }
+}
+
+<header data-ktc-search-exclude>
+    <nav>
+
+        @foreach (var item in Model.NavItems)
+        {
+            <li class="nav-item">
+                <a class="nav-link @GetCurrentClass(item)" @GetAriaAttribute(item) href="@item.Url">@item.Caption</a>
+            </li>
+        }
+
+    </nav>
+</header>

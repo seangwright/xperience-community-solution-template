@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Kentico Community",
+  "classifications": ["Web", "Solution"],
+  "name": "xperience-community-xperience-by-kentico",
+  "shortName": "xpc-xperience-by-kentico-sln",
+  "defaultName": "XPC",
+  "description": "Xperience Community Xperience by Kentico Project Template generator",
+  "identity": "xperience-community-xperience-by-kentico",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "PROJECT_IDENTIFIER",
+  "primaryOutputs": [
+    {
+      "path": "PROJECT_IDENTIFIER.sln"
+    }
+  ],
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/node_modules"
+      ],
+      "copyOnly": ["**/Directory.Build.targets", "**/vite.config.js"]
+    }
+  ],
+  "guids": [
+    "8A779F6A-C85C-4B84-AF36-7879DA1D4DD1",
+    "E943754B-60CC-4EBD-87A2-C2A9EA6B2D8B",
+    "23C5A353-56C0-46B5-B3BC-160562A889D8",
+
+    "BB8817AE-48DF-4672-A1CB-CFB7441B88DA",
+    "6B9B2657-6876-4F1C-808F-341441E1C061",
+    "45C723F3-E4B4-4ED7-9AE9-51BAE403FBED",
+    "66A4BF3C-4351-450B-9247-DE57EE017A66",
+    "9E9C765C-62CC-4E82-9D50-7F4727AE316B",
+    "F9B6C1DA-9AC6-4A7F-9E64-09CEEDC10760",
+    "D61FBBB7-B8F0-4AE1-8BCE-B537022828E8",
+    "CE1B46BA-9BB0-4038-94D1-0F49EBD03E42",
+
+    "42A55EC2-3801-4624-85E5-5DC5FDBBB980",
+    "8680B280-AA65-4BB2-BBA7-B724D0606B96",
+    "4BC0FAE3-6665-4D8A-92E6-1ABD6681E8E3",
+    "EE9E0E56-1351-480B-8C10-0A96549E958B",
+    "9311EF76-A31B-4BE4-B4D5-3FD26B4079D6",
+    "B32E3880-238F-4587-9A43-D012B559C7FD",
+    "AB1C0E71-E4A6-473F-913D-95D559EAB1DF",
+
+    "86db6edb-f2b9-4e07-81fa-04aad0ce1ccc",
+    "233191db-cad3-4a38-8757-abe00fb00186",
+    "43c498ce-15c6-4bc3-bf58-0331d0245aad"
+  ],
+  "preferNameDirectory": false,
+  "symbols": {
+    "sourceNameLower": {
+      "type": "generated",
+      "generator": "casing",
+      "parameters": {
+        "source": "name",
+        "toLower": true
+      },
+      "replaces": "project_identifier"
+    },
+
+    "WebHttpPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the HTTP endpoint in launchSettings.json."
+    },
+    "WebHttpPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "high": 45999,
+        "low": 45000
+      }
+    },
+    "WebHttpPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "WebHttpPort",
+        "fallbackVariableName": "WebHttpPortGenerated"
+      },
+      "replaces": "45555"
+    },
+
+    "WebHttpsPort": {
+      "type": "parameter",
+      "datatype": "integer",
+      "description": "Port number to use for the HTTPS endpoint in launchSettings.json."
+    },
+    "WebHttpsPortGenerated": {
+      "type": "generated",
+      "generator": "port",
+      "parameters": {
+        "low": 46000,
+        "high": 46999
+      }
+    },
+    "WebHttpsPortReplacer": {
+      "type": "generated",
+      "generator": "coalesce",
+      "parameters": {
+        "sourceVariableName": "WebHttpsPort",
+        "fallbackVariableName": "WebHttpsPortGenerated"
+      },
+      "replaces": "46555"
+    },
+
+    "ProductionDomain": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The client's production domain (without https or trailing /)",
+      "defaultValue": "client-domain.com",
+      "replaces": "production-domain",
+      "isRequired": false
+    },
+    "ClientName": {
+      "type": "parameter",
+      "datatype": "text",
+      "description": "The client's name, lowercase, alphanumeric with hyphens (ex: travel-depo)",
+      "defaultValue": "client-name",
+      "replaces": "client-name",
+      "isRequired": true
+    }
+  }
+}

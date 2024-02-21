@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <AssemblyAttribute Include="CMS.AssemblyDiscoverableAttribute">
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" />
+    <PackageReference Include="Kentico.Xperience.WebApp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="CSharpFunctionalExtensions" />
+    <Using Include="CMS.ContentEngine" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Required to prevent type conflicts with CSharpFunctionalExtensions types -->
+    <HotChocolateImplicitUsings>disable</HotChocolateImplicitUsings>
+  </PropertyGroup>
+
+</Project>

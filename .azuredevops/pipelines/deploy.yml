@@ -1,0 +1,16 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - "src/*"
+      - "XperienceCommunity.SolutionTemplate.csproj"
+
+stages:
+  - template: stages.yml
+    parameters:
+      artifactName: "SolutionTemplate"
+      solutionFile: "./src/PROJECT_IDENTIFIER.sln"
+      projectFile: "./XperienceCommunity.SolutionTemplate.csproj"

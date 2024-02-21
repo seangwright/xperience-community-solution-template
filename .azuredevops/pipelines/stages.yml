@@ -1,0 +1,112 @@
+parameters:
+  - name: packageFeed
+    type: string
+  - name: solutionFile
+    type: string
+  - name: artifactName
+    type: string
+  - name: projectFile
+    type: string
+
+stages:
+  - stage: "BuildArtifacts"
+    displayName: "Build Artifacts"
+    jobs:
+      - job: "Prepare"
+        steps:
+          - checkout: self
+            lfs: false
+            fetchDepth: 1
+            clean: true
+
+          - task: NuGetToolInstaller@0
+            displayName: "Install latest NuGet"
+            inputs:
+              versionSpec: 5.x
+              checkLatest: true
+
+          - task: NuGetCommand@2
+            displayName: "NuGet restore ${{ parameters.solutionFile }}"
+            inputs:
+              restoreSolution: "${{ parameters.solutionFile }}"
+              vstsFeed: "${{ parameters.packageFeed }}"
+
+          - task: VSBuild@1
+            displayName: "Build solution ${{ parameters.solutionFile }}"
+            inputs:
+              solution: "${{ parameters.solutionFile }}"
+              vsVersion: latest
+              msbuildArgs: "/m /p:SkipInvalidConfigurations=true"
+              configuration: "Release"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Create Release NuGet Package: ${{ parameters.artifactName }}"
+            inputs:
+              command: pack
+              packagesToPack: "${{ parameters.projectFile }}"
+              packDirectory: "$(System.DefaultWorkingDirectory)/packages/${{ parameters.artifactName }}/releases"
+              configuration: "Release"
+              verbosityPack: Detailed
+
+          - task: DotNetCoreCLI@2
+            displayName: "Create Pre-Release NuGet Package: ${{ parameters.artifactName }}"
+            inputs:
+              command: pack
+              packagesToPack: "${{ parameters.projectFile }}"
+              packDirectory: "$(System.DefaultWorkingDirectory)/packages/${{ parameters.artifactName }}/prereleases"
+              verbosityPack: Detailed
+              configuration: "Release"
+              buildProperties: 'VersionSuffix="ci-$(Build.BuildNumber)"'
+
+          - publish: "$(System.DefaultWorkingDirectory)/packages/${{ parameters.artifactName }}"
+            displayName: "Publish Artifact ${{ parameters.artifactName }}"
+            artifact: "build_${{ parameters.artifactName }}"
+
+  - stage: "PublishPreReleaseArtifacts"
+    displayName: "Publish Pre-Release Artifacts"
+    dependsOn: "BuildArtifacts"
+    condition: succeeded()
+
+    jobs:
+      - job:
+        displayName: "Publish Pre-Release Packages"
+
+        steps:
+          - checkout: none
+
+          - download: current
+            displayName: "Download Artifacts"
+
+          - task: DotNetCoreCLI@2
+            displayName: "Push Pre-Release Packages"
+            inputs:
+              command: "push"
+              packagesToPush: '$(Pipeline.Workspace)\**\prereleases\*.nupkg'
+              nuGetFeedType: "internal"
+              publishVstsFeed: "${{ parameters.packageFeed }}"
+
+  - stage: "PublishReleaseArtifacts"
+    displayName: "Publish Release Artifacts"
+    dependsOn: "PublishPreReleaseArtifacts"
+    condition: succeeded()
+
+    jobs:
+      - deployment:
+        displayName: "Publish Release Packages"
+        environment: "release"
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: none
+
+                - download: current
+                  displayName: "Download Artifacts"
+
+                - task: DotNetCoreCLI@2
+                  displayName: "Push Release Packages"
+                  inputs:
+                    command: "push"
+                    packagesToPush: '$(Pipeline.Workspace)\**\releases\*.nupkg'
+                    nuGetFeedType: "internal"
+                    publishVstsFeed: "${{ parameters.packageFeed }}"

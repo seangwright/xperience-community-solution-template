@@ -1,0 +1,69 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": true,
+    "**/obj": true,
+    "**/bin": true,
+    // hidden to simplify the explorer view
+    "**/packages.lock.json": true,
+    "**/package-lock.json": true,
+    "**/*.csproj.user": true,
+    "azurite_storage": true
+  },
+
+  "search.exclude": {
+    "**/*.code-search": true,
+    "**/CIRepository/**": true
+  },
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  "[xml]": {
+    "editor.defaultFormatter": "DotJoshJohnson.xml"
+  },
+
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[razor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[aspnetcorerazor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "emmet.includeLanguages": {
+    "razor": "html"
+  },
+
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+
+  "dotnet.defaultSolution": "PROJECT_IDENTIFIER.sln",
+
+  "typescript.validate.enable": false,
+  "eslint.workingDirectories": ["./src/PROJECT_IDENTIFIER.Admin/Client"],
+
+  "files.associations": {
+    "*.runsettings": "xml"
+  },
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  },
+
+  "terminal.integrated.defaultProfile.osx": "pwsh"
+}

@@ -1,0 +1,41 @@
+@using PROJECT_IDENTIFIER.Web.Components.PageCustomMeta
+
+@model PageCustomMetaViewModel
+
+<title>@Model.Title</title>
+<meta content="@Model.Description" name="description">
+
+<link rel="canonical" href="@Model.URL">
+
+@if (Model.OGImageURL is string ogImageURL)
+{
+    <meta name="og:image" content="@ogImageURL">
+}
+<meta name="og:title" content="@Model.Title">
+<meta name="og:description" content="@Model.Description">
+<meta name="og:url" content="@Model.URL">
+<meta name="og:type" content="website">
+<meta name="og:site_name" content="@Model.SiteName">
+<meta name="apple-mobile-web-app-title" content="@Model.Title">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="author" content="Kentico software s.r.o.">
+
+@if (!string.IsNullOrWhiteSpace(Model.MetaRobotsContent))
+{
+    <meta name="robots" content="@Model.MetaRobotsContent">
+}
+
+<link rel="manifest" href="/manifest/site.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/manifest/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/manifest/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/manifest/favicon-16x16.png">
+<link rel="mask-icon" href="/manifest/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+@if (Model.CanonicalURL.TryGetValue(out var url))
+{
+    <link rel="canonical" href="@url">
+}
+
+<meta name="htmx-config" includeAspNetAntiforgeryToken="true" />

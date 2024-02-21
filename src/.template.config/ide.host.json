@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/vs-2017.3.host",
+  "icon": "icon.png",
+  "description": {
+    "text": "Kentico Community project template for Xperience by Kentico applications"
+  },
+  "includeLaunchSettings": true,
+  "name": {
+    "text": "Kentico Community Xperience by Kentico Solution"
+  },
+  "order": 0,
+  "unsupportedHosts": [
+    {
+      "id": "vs"
+    }
+  ]
+}
