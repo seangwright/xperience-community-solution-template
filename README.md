@@ -8,20 +8,15 @@ Ensure [Windows 10 long file paths](https://www.howtogeek.com/266621/how-to-make
 
 To build the NuGet package locally:
 
-    dotnet pack .\XperienceCommunity.SolutionTemplate.csproj --version-suffix "preview.X" -o ./nupkg
+    dotnet pack .\XperienceCommunity.SolutionTemplate.csproj -o ./nupkg
 
-To install the tool (replacing `-previewX` with the version specified in the `.nuspec` file):
+To install the tool (replacing `prerelease-X` with the version suffix specified in the `.csproj` file):
 
-    dotnet new --install .\nupkg\XperienceCommunity.SolutionTemplate.nuspec.1.0.0-preview.X.nupkg
-
-To use the template, create a new directory:
-
-    > mkdir PROJ01
-    > cd PROJ01
+    dotnet new install .\nupkg\XperienceCommunity.SolutionTemplate.1.0.0-preelease-X.nupkg
 
 Then run the template:
 
-    dotnet new xpc-xperience-by-kentico-sln --name PRO01 --ClientName pro-client
+    dotnet new xpc-xperience-by-kentico-sln --name PRO01 --ClientName pro-client -o ./PROJ01
 
 To uninstall the template, run:
 
